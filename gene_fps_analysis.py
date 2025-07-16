@@ -36,11 +36,11 @@ gsva_result["ferroptosis_score"] = gsva_result["ferroptosis_driver"] - gsva_resu
 threshold = gsva_result["ferroptosis_score"].median()
 labels = (gsva_result["ferroptosis_score"] > threshold).astype(int)
 
-# === STEP 6: Logistic Regression on APOE ===
+# === STEP 6: Logistic Regression on Gene1 ===
 # Logistic regression is used here because we are evaluating the effect of a single gene.
 # It offers a simple, interpretable model where the direction and strength of association
-# between gene expression (e.g., APOE) and ferroptosis sensitivity can be easily understood.
-X = expr[["Gene"]]
+# between gene expression and ferroptosis sensitivity can be easily understood.
+X = expr[["Gene1"]]
 y = labels
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
@@ -70,25 +70,25 @@ explainer = shap.Explainer(clf_lr, X_train)
 shap_values = explainer(X_test)
 shap.plots.beeswarm(shap_values)
 
-# === Correlation Analysis (APOE vs FPS) ===
+# === Correlation Analysis (Gene1 vs FPS) ===
 ferroptosis_score = gsva_result["ferroptosis_score"]
-apoe_expr = expr["Gene"]
-rho, pval = spearmanr(apoe_expr, ferroptosis_score)
+gene1_expr = expr["Gene1"]
+rho, pval = spearmanr(gene1_expr, ferroptosis_score)
 
 plt.figure(figsize=(7, 5))
-sns.regplot(x=apoe_expr, y=ferroptosis_score, scatter_kws={"alpha": 0.6})
+sns.regplot(x=gene1_expr, y=ferroptosis_score, scatter_kws={"alpha": 0.6})
 plt.xlabel("Gene Expression")
 plt.ylabel("Ferroptosis Score")
 plt.title(f"Gene vs Ferroptosis Score\nSpearman ρ = {rho:.2f}, p = {pval:.2g}")
 plt.grid(True)
 plt.tight_layout()
-plt.savefig("apoe_vs_ferroptosis_score.png", dpi=300)
+plt.savefig("gene_vs_ferroptosis_score.png", dpi=300)
 plt.show()
 
 # === Correlation if expression and FPS are separate ===
 # FPS should be a DataFrame with index matching expr and a column 'FPS'
 # common_index = expr.index.intersection(FPS.index)
-# x = expr.loc[common_index, "APOE"]
+# x = expr.loc[common_index, "Gene1"]
 # y = FPS.loc[common_index, "FPS"]
 # rho, p = spearmanr(x, y)
 # print(f"Spearman ρ = {rho:.3f}, p = {p:.4g}")
@@ -96,7 +96,7 @@ plt.show()
 # === Random Forest on Gene1 + Gene2 ===
 # Random forest is used here to analyze multiple genes simultaneously.
 # Unlike logistic regression, it can capture non-linear relationships and interactions between genes,
-# such as APOE and TFRC, to improve classification of ferroptosis sensitivity.
+# such as Gene1 and Gene2, to improve classification of ferroptosis sensitivity.
 selected_genes = ["Gene1", "Gene2"]
 if not all(g in expr.columns for g in selected_genes):
     raise ValueError("One or both of Gene1 and Gene2 are not in the expression matrix.")
