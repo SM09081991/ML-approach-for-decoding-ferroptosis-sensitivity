@@ -66,7 +66,7 @@ Using `shap.TreeExplainer`, we decompose each prediction to visualize how Gene1 
 
 ## 📈 Outputs
 
-- `apoe_vs_ferroptosis_score.png`: Scatterplot of APOE vs ferroptosis score.
+- `gene1_vs_ferroptosis_score.png`: Scatterplot of Gene1 vs ferroptosis score.
 - Console output of classification reports, confusion matrices, and feature importances.
 - SHAP visualizations for both linear and nonlinear models.
 
