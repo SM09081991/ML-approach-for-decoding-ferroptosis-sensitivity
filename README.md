@@ -13,7 +13,7 @@ A simple, interpretable model that assumes a linear relationship between input (
 Well-suited for analyzing a single gene, because it shows the direction and strength of association (positive or negative).
 
 Ideal for evaluating:
-“Does high expression of APOE increase or decrease ferroptosis sensitivity?”
+“Does high expression of "Gene1" increase or decrease ferroptosis sensitivity?”
 
 **Why Use Random Forest for Two or More Genes?**
 Random forest:
