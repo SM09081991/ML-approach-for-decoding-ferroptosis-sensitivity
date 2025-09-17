@@ -6,6 +6,7 @@ This analysis is inspired by the study “Secreted APOE rewires melanoma cell st
 
 ✅ **Understanding the ML approach**
 **Why Use Logistic Regression for One Gene?**
+
 Logistic regression is:
 
 A simple, interpretable model that assumes a linear relationship between input (gene expression) and outcome (ferroptosis sensitivity).
@@ -16,6 +17,7 @@ Ideal for evaluating:
 “Does high expression of "Gene1" increase or decrease ferroptosis sensitivity?”
 
 **Why Use Random Forest for Two or More Genes?**
+
 Random forest:
 
 Is a non-linear, ensemble model that builds many decision trees and averages their results.
@@ -51,7 +53,7 @@ Samples are split into:
 We use only one gene (e.g., `Gene1`) to predict binary ferroptosis sensitivity using a logistic regression classifier.
 
 ### **Step 7: SHAP for Logistic Regression**
-We apply SHAP (`shap.Explainer`) to interpret how APOE expression influences the logistic regression model's predictions.
+We apply SHAP (`shap.Explainer`) to interpret how Gene1 expression influences the logistic regression model's predictions.
 
 ### **Step 8: Correlation Analysis**
 A scatter plot is generated showing Spearman correlation between APOE expression and ferroptosis score, visualizing linear or rank-based relationships.
